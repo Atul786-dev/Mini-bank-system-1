@@ -1,0 +1,63 @@
+def create_account():
+    global account_number
+    name = input("Enter your name: ")
+    accounts[account_number] = {"name": name, "balance": 0}
+    print(f"Account created successfully! Your account number is {account_number}")
+    account_number += 1
+
+def deposit_money():
+    account_num = int(input("Enter your account number: "))
+    if account_num in accounts:
+        amount = float(input("Enter the amount to deposit: "))
+        accounts[account_num]["balance"] += amount
+        print(f"{amount} deposited successfully! New balance: {accounts[account_num]['balance']}")
+    else:
+        print("Account does not exist. Please create an account first.")
+
+def withdraw_money():
+    account_num = int(input("Enter your account number: "))
+    if account_num in accounts:
+        amount = float(input("Enter the amount to withdraw: "))
+        if accounts[account_num]["balance"] >= amount:
+            accounts[account_num]["balance"] -= amount
+            print(f"{amount} withdrawn successfully! New balance: {accounts[account_num]['balance']}")
+        else:
+            print("Insufficient balance.")
+    else:
+        print("Account does not exist. Please create an account first.")
+
+def check_balance():
+    account_num = int(input("Enter your account number: "))
+    if account_num in accounts:
+        print(f"Account balance: {accounts[account_num]['balance']}")
+    else:
+        print("Account does not exist. Please create an account first.")
+
+accounts = {}
+account_number = 1
+
+while True:
+    print("=== Banking System Menu ===")
+    print("1. Create Account")
+    print("2. Deposit Money")
+    print("3. Withdraw Money")
+    print("4. Check Balance")
+    print("5. Exit")
+
+    choice = input("Enter your choice: ")
+
+    if choice not in ["1", "2", "3", "4", "5"]:
+        print("Invalid choice. Please try again.")
+        continue
+
+    if choice == "1":
+        create_account()
+    elif choice == "2":
+        deposit_money()
+    elif choice == "3":
+        withdraw_money()
+    elif choice == "4":
+        check_balance()
+    elif choice == "5":
+        print("Exiting banking system.")
+        break
